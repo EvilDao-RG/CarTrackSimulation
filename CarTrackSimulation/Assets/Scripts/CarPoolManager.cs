@@ -11,7 +11,7 @@ public class CarPoolManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject car;
-    [SerializeField] private int _poolSize;
+    [SerializeField] public int _poolSize;
     private Queue<GameObject> _pool;
 
     private void Awake() {

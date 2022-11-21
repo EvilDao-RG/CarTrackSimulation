@@ -30,23 +30,16 @@ public class CarDataManager : MonoBehaviour
         for (int i = 0; i < cars.Length; i++){
             carsGO[i] = CarPoolManager.Instance.Activate(Vector3.zero);
         }
-        enumerator = cycleCars();
-        Coroutine coroutine = StartCoroutine(enumerator);
+        print("start");
     }
 
     public void placeCars(CarList carList){
+        print("try");
         for (int i = 0; i < cars.Length; i++){
             carsGO[i].transform.position = new Vector3(carList.cars[i].x, carList.cars[i].y, carList.cars[i].z);
         }
     }
 
-    IEnumerator cycleCars(){
-        while(true){
-            NetworkManager.Instance.UpdatePositions(carsGO.Length);
-            yield return new WaitForSeconds(1);
-        }
-    }
-    
     public void listenWithArgs(CarList cars){
         placeCars(cars);
         print("Si");

@@ -19,6 +19,7 @@ public class NetworkManager : MonoBehaviour
     public CarList cars;
     public string backendURL = "http://127.0.0.1:5000/";
     public RequestWithArgs requestWithArgs;
+    private IEnumerator enumerator;
 
 
     private void Awake() {
@@ -31,6 +32,8 @@ public class NetworkManager : MonoBehaviour
     
     void Start()
     {
+        enumerator = UpdatePositions(CarPoolManager.Instance._poolSize);
+        Coroutine coroutine = StartCoroutine(enumerator);
     }
 
     void Update()
@@ -38,14 +41,12 @@ public class NetworkManager : MonoBehaviour
         
     }
 
-    public void UpdatePositions(int poolSize){
-        bool complete = true;
-        while(complete){
+    IEnumerator UpdatePositions(int poolSize){
+        while(true){
             string url = backendURL + "?size=" + poolSize;
             print(url); 
             UnityWebRequest request = UnityWebRequest.Get(backendURL + "?size=" + poolSize);
-            request.SendWebRequest();
-            new WaitForSeconds(2);
+            yield return request.SendWebRequest();
 
             if(request.result != UnityWebRequest.Result.Success){
                 Debug.LogError("NEL");
@@ -53,9 +54,10 @@ public class NetworkManager : MonoBehaviour
             } else {
                 print(request.downloadHandler.text);
                 cars = JsonUtility.FromJson<CarList>(request.downloadHandler.text);
+                print(cars);
                 requestWithArgs?.Invoke(cars);
             }    
-            complete = false;
+            yield return new WaitForSeconds(1);
         }
     }
 }
