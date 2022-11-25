@@ -19,9 +19,17 @@ public class CarCameraManager : MonoBehaviour
     void OnMouseDown()
     {
         //Detect when car is clicked and switch to car camera view
-        Camera cam = gameObject.GetComponent<Camera>();
-        cam.transform.position = new Vector3(transform.position.x, transform.position.y + 2.0f, transform.position.z);
-        cam.enabled = true;
+        
+        Camera cam = gameObject.transform.GetChild(0).GetComponent<Camera>();
+        
+        cam.transform.position = new Vector3(transform.position.x, 
+                                            transform.position.y + 2f, 
+                                            transform.position.z);
+
+        cam.transform.eulerAngles = new Vector3(transform.eulerAngles.x + 90,
+                                                transform.eulerAngles.y + 180,
+                                                transform.eulerAngles.z + 90);
+        cam.enabled = true;        
         CameraManager.Instance.DeactivateAll();
 
     }
