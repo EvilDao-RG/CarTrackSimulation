@@ -2362,8 +2362,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameras:
-  - {fileID: 1294816674}
   - {fileID: 2087988028}
+  - {fileID: 1294816674}
   - {fileID: 666129946}
   - {fileID: 1592504262}
   _currentCamera: 0
@@ -3384,7 +3384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &666129946
 Camera:
   m_ObjectHideFlags: 0
@@ -5620,12 +5620,12 @@ GameObject:
   - component: {fileID: 1294816674}
   - component: {fileID: 1294816675}
   m_Layer: 0
-  m_Name: Camera1
+  m_Name: Camera2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &1294816674
 Camera:
   m_ObjectHideFlags: 0
@@ -5690,7 +5690,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
 --- !u!1001 &1319578858
 PrefabInstance:
@@ -6556,7 +6556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &1592504262
 Camera:
   m_ObjectHideFlags: 0
@@ -6615,14 +6615,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1592504261}
-  m_LocalRotation: {x: 0.10484475, y: 0.6992908, z: -0.10484478, w: 0.6992908}
-  m_LocalPosition: {x: -5, y: 2, z: 0}
+  m_LocalRotation: {x: 0.108768955, y: -0.45188406, z: 0.05562126, w: 0.8836721}
+  m_LocalPosition: {x: 4, y: 2, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 17.054, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 14.034, y: -54.168, z: 0}
 --- !u!1001 &1613309541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8784,7 +8784,7 @@ GameObject:
   - component: {fileID: 2087988028}
   - component: {fileID: 2087988027}
   m_Layer: 0
-  m_Name: Camera2
+  m_Name: Camera1
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8854,7 +8854,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2095757341
 PrefabInstance:
