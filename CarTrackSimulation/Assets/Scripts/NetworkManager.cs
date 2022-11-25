@@ -44,7 +44,6 @@ public class NetworkManager : MonoBehaviour
     IEnumerator UpdatePositions(int poolSize){
         while(true){
             string url = backendURL + "?size=" + poolSize;
-            print(url); 
             UnityWebRequest request = UnityWebRequest.Get(backendURL + "?size=" + poolSize);
             yield return request.SendWebRequest();
 
@@ -52,9 +51,7 @@ public class NetworkManager : MonoBehaviour
                 Debug.LogError("NEL");
                 print(request.result);
             } else {
-                print(request.downloadHandler.text);
                 cars = JsonUtility.FromJson<CarList>(request.downloadHandler.text);
-                print(cars);
                 requestWithArgs?.Invoke(cars);
             }    
             yield return new WaitForSeconds(1);

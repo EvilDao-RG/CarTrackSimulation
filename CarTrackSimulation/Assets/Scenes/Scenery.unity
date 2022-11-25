@@ -2544,6 +2544,17 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 0
+  carsSO:
+  - {fileID: 11400000, guid: 205f180d98bd2eb42b665765e69a57c9, type: 2}
+  - {fileID: 11400000, guid: 576907b365afb4b4bbc57bd2cea9e495, type: 2}
+  - {fileID: 11400000, guid: c3d37ebd6dd74ac47948e0e40fee695e, type: 2}
+  - {fileID: 11400000, guid: 235e13a9bb7301a4098cd71054f69563, type: 2}
+  - {fileID: 11400000, guid: 7a7e846039090fd48a5d360706787702, type: 2}
+  - {fileID: 11400000, guid: 1ee19c1c45a6a604295d3b251770453f, type: 2}
+  - {fileID: 11400000, guid: 5e63b6143d0885b46b7d39bea72a7da8, type: 2}
+  - {fileID: 11400000, guid: 4beb87ba11a28f648a369ba05e4b5fef, type: 2}
+  - {fileID: 11400000, guid: c2adb1413bca9ca46985071b29ad4080, type: 2}
+  - {fileID: 11400000, guid: e5bc032d19d189c4886a7fab0ecb839f, type: 2}
 --- !u!4 &546533143
 Transform:
   m_ObjectHideFlags: 0
@@ -4742,7 +4753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf0986521d9a4c48927fab3dd73c49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  car: {fileID: 7255800981724555998, guid: 18eda35edf87961499a598cedd48c7ed, type: 3}
+  car: {fileID: 3215185165362388374, guid: 18eda35edf87961499a598cedd48c7ed, type: 3}
   _poolSize: 10
 --- !u!4 &1151623172
 Transform:

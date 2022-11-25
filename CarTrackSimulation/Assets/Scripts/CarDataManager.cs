@@ -8,6 +8,7 @@ public class CarDataManager : MonoBehaviour
 {
     [SerializeField] private Car[] cars;
     private GameObject[] carsGO;
+    [SerializeField] private CarSO[] carsSO;
     private IEnumerator enumerator;
 
     public static CarDataManager Instance{
@@ -30,18 +31,16 @@ public class CarDataManager : MonoBehaviour
         for (int i = 0; i < cars.Length; i++){
             carsGO[i] = CarPoolManager.Instance.Activate(Vector3.zero);
         }
-        print("start");
     }
 
     public void placeCars(CarList carList){
-        print("try");
         for (int i = 0; i < cars.Length; i++){
             carsGO[i].transform.position = new Vector3(carList.cars[i].x, carList.cars[i].y, carList.cars[i].z);
+            carsGO[i].GetComponent<CarBuilder>().UpdateCar(carsSO[UnityEngine.Random.Range(0, carsSO.Length -1)]);
         }
     }
 
     public void listenWithArgs(CarList cars){
         placeCars(cars);
-        print("Si");
     }
 }
