@@ -5,7 +5,8 @@ using UnityEngine;
 public class CarBuilder : MonoBehaviour
 {
     [SerializeField] CarSO _data;
-    private GameObject _innerCar;
+    public GameObject _innerCar;
+    
 
     private void Awake() {
         // Build car using data
