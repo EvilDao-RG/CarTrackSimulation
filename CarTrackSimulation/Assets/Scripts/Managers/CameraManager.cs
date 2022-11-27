@@ -5,6 +5,22 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
 
+    
+
+    public static CameraManager Instance{
+        get;
+        private set;
+    }
+
+    void Awake()
+    {
+        if(Instance != null){
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     [SerializeField] private Camera[] _cameras;
     [SerializeField] private int _currentCamera;
     void Start()
@@ -21,7 +37,7 @@ public class CameraManager : MonoBehaviour
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Space)){
-            NextCamera();
+            DeactivateAll();
         }
     }
 
@@ -31,4 +47,18 @@ public class CameraManager : MonoBehaviour
         _currentCamera %= _cameras.Length;
         _cameras[_currentCamera].gameObject.SetActive(true);
     }
+
+    public void DeactivateAll(){
+        for(int i = 0; i < _cameras.Length; i++){
+            
+            _cameras[i].gameObject.SetActive(false);
+            
+        }
+    }
+
+    void OnMouseDown()
+    {
+        print("'Click'");
+    }
+
 }
