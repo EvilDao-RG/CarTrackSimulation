@@ -35,8 +35,15 @@ public class CarDataManager : MonoBehaviour
 
     public void placeCars(CarList carList){
         for (int i = 0; i < cars.Length; i++){
-            carsGO[i].transform.position = new Vector3(carList.cars[i].x, carList.cars[i].y, carList.cars[i].z);
-            carsGO[i].GetComponent<CarBuilder>().UpdateCar(carsSO[UnityEngine.Random.Range(0, carsSO.Length -1)]);
+            if (carsGO[i].transform.position.x < carList.cars[i].x){
+                carsGO[i].transform.rotation = Quaternion.Euler(0, 90, 0);
+            } else if (carsGO[i].transform.position.x > carList.cars[i].x){
+                carsGO[i].transform.rotation = Quaternion.Euler(0, -90, 0);
+            } else if (carsGO[i].transform.position.z < carList.cars[i].z) {
+                carsGO[i].transform.rotation = Quaternion.Euler(0, 0, 0);
+            } else {
+                carsGO[i].transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
         }
     }
 
