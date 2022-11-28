@@ -8,6 +8,9 @@ using System;
 [Serializable]
 public class RequestWithArgs : UnityEvent<CarList>{}
 
+[Serializable]
+public class OneTimeRequest : UnityEvent<StepList>{}
+
 public class NetworkManager : MonoBehaviour
 {
 
@@ -17,8 +20,10 @@ public class NetworkManager : MonoBehaviour
     }
 
     public CarList cars;
-    public string backendURL = "http://127.0.0.1:5000/";
+    public StepList stepList;
+    public string backendURL = "http://127.0.0.1:5000/all";
     public RequestWithArgs requestWithArgs;
+    public OneTimeRequest oneTimeArgsListener;
     private IEnumerator enumerator;
 
 
@@ -32,7 +37,7 @@ public class NetworkManager : MonoBehaviour
     
     void Start()
     {
-        enumerator = UpdatePositions(CarPoolManager.Instance._poolSize);
+        enumerator = GetSimulation(CarPoolManager.Instance._poolSize);
         Coroutine coroutine = StartCoroutine(enumerator);
     }
 
@@ -56,5 +61,20 @@ public class NetworkManager : MonoBehaviour
             }    
             yield return new WaitForSeconds(1);
         }
+    }
+
+    IEnumerator GetSimulation(int poolSize){
+        string url = backendURL + "?size=" + poolSize;
+        UnityWebRequest request = UnityWebRequest.Get(url);
+        yield return request.SendWebRequest();
+
+        if(request.result != UnityWebRequest.Result.Success){
+            Debug.LogError("NEL");
+            print(request.result);
+        } else {
+            stepList = JsonUtility.FromJson<StepList>(request.downloadHandler.text);
+            oneTimeArgsListener?.Invoke(stepList);
+        }    
+        yield return new WaitForSeconds(1);      
     }
 }

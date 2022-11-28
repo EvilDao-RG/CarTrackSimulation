@@ -55,4 +55,16 @@ public class CarDataManager : MonoBehaviour
     public void listenWithArgs(CarList cars){
         placeCars(cars);
     }
+
+    public void oneTimeListener(StepList track){
+        StartCoroutine(simulatorSteps(track));
+    }
+
+    IEnumerator simulatorSteps(StepList track){
+        for(int i = 0; i < track.steps.Length; i++){
+            CarList cars = new CarList(track.steps[i].cars);
+            placeCars(cars);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
 }
