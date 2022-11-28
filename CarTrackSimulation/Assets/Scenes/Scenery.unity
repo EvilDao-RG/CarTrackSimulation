@@ -4404,43 +4404,33 @@ MonoBehaviour:
   cars:
   - id: 0
     x: 0
-    y: 0
     z: 0
   - id: 0
     x: 0
-    y: 0
     z: 0
   - id: 0
     x: 0
-    y: 0
     z: 0
   - id: 0
     x: 0
-    y: 0
     z: 0
   - id: 0
     x: 0
-    y: 0
     z: 0
   - id: 0
     x: 0
-    y: 0
     z: 0
   - id: 0
     x: 0
-    y: 0
     z: 0
   - id: 0
     x: 0
-    y: 0
     z: 0
   - id: 0
     x: 0
-    y: 0
     z: 0
   - id: 0
     x: 0
-    y: 0
     z: 0
   carsSO:
   - {fileID: 11400000, guid: 205f180d98bd2eb42b665765e69a57c9, type: 2}
