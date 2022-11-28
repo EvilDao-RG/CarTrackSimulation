@@ -44,6 +44,11 @@ public class CarDataManager : MonoBehaviour
             } else {
                 carsGO[i].transform.rotation = Quaternion.Euler(0, 180, 0);
             }
+            Vector3 target = new Vector3(carList.cars[i].x, 0, carList.cars[i].z);
+            carsGO[i].transform.position = target;
+            
+            //carsGO[i].transform.position = new Vector3(carList.cars[i].x, 0, carList.cars[i].z);
+            carsGO[i].GetComponent<CarBuilder>().UpdateCar(carsSO[UnityEngine.Random.Range(0, carsSO.Length -1)]);
         }
     }
 
