@@ -9,6 +9,7 @@ public class CarDataManager : MonoBehaviour
     [SerializeField] private Car[] cars;
     private GameObject[] carsGO;
     [SerializeField] private CarSO[] carsSO;
+    [SerializeField] private float speed;
     private Vector3[] targetPositions;
     private IEnumerator enumerator;
 
@@ -39,7 +40,7 @@ public class CarDataManager : MonoBehaviour
         if(targetPositions != null){
             for(int i = 0; i < targetPositions.Length; i++){
                 if(targetPositions[i] != Vector3.zero){
-                    carsGO[i].transform.Translate(Vector3.forward * Time.deltaTime);
+                    carsGO[i].transform.Translate(Vector3.forward * Time.deltaTime * speed);
                     carsGO[i].transform.forward = targetPositions[i].normalized;
                 }
             }
@@ -76,7 +77,7 @@ public class CarDataManager : MonoBehaviour
                     targetPositions[j] = Vector3.zero;
                 }
             }
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1/speed);
         }
     }
 

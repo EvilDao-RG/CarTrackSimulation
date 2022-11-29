@@ -43,7 +43,7 @@ public class NetworkManager : MonoBehaviour
     }
 
     IEnumerator GetSimulation(int poolSize){
-        string url = backendURL + "?size=" + poolSize;
+        string url = backendURL + "?n_cars=" + (poolSize / 4);
         UnityWebRequest request = UnityWebRequest.Get(url);
         yield return request.SendWebRequest();
 
