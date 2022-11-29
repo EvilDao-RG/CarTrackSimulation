@@ -44,8 +44,10 @@ public class CarDataManager : MonoBehaviour
             } else {
                 carsGO[i].transform.rotation = Quaternion.Euler(0, 180, 0);
             }
+
             Vector3 target = new Vector3(carList.cars[i].x, 0, carList.cars[i].z);
             carsGO[i].transform.position = target;
+            //StartCoroutine(moveCar(i, target));
             
             //carsGO[i].transform.position = new Vector3(carList.cars[i].x, 0, carList.cars[i].z);
             carsGO[i].GetComponent<CarBuilder>().UpdateCar(carsSO[UnityEngine.Random.Range(0, carsSO.Length -1)]);
@@ -54,5 +56,25 @@ public class CarDataManager : MonoBehaviour
 
     public void listenWithArgs(CarList cars){
         placeCars(cars);
+    }
+
+    public void oneTimeListener(StepList track){
+        StartCoroutine(simulatorSteps(track));
+    }
+
+    IEnumerator simulatorSteps(StepList track){
+        for(int i = 0; i < track.steps.Length; i++){
+            CarList cars = new CarList(track.steps[i].cars);
+            placeCars(cars);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    IEnumerator moveCar(int i, Vector3 target){
+        while(carsGO[i].transform.position != target){
+            Vector3 velocity = new Vector3(1,1,1);
+            carsGO[i].transform.position = Vector3.SmoothDamp(carsGO[i].transform.position, target, ref velocity, 0.3F);
+        }
+        yield return new WaitForSeconds(0);
     }
 }
