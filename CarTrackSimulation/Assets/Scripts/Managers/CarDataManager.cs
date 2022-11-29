@@ -9,6 +9,7 @@ public class CarDataManager : MonoBehaviour
     [SerializeField] private Car[] cars;
     private GameObject[] carsGO;
     [SerializeField] private CarSO[] carsSO;
+    private Vector3[] targetPositions;
     private IEnumerator enumerator;
 
     public static CarDataManager Instance{
@@ -30,35 +31,33 @@ public class CarDataManager : MonoBehaviour
         carsGO = new GameObject[cars.Length];
         for (int i = 0; i < cars.Length; i++){
             carsGO[i] = CarPoolManager.Instance.Activate(Vector3.zero);
+            carsGO[i].GetComponent<CarBuilder>().UpdateCar(carsSO[UnityEngine.Random.Range(0, carsSO.Length -1)]);
+        }
+    }
+
+    private void Update() {
+        if(targetPositions != null){
+            for(int i = 0; i < targetPositions.Length; i++){
+                if(targetPositions[i] != Vector3.zero){
+                    carsGO[i].transform.Translate(Vector3.forward * Time.deltaTime);
+                    carsGO[i].transform.forward = targetPositions[i].normalized;
+                }
+            }
         }
     }
 
     public void placeCars(CarList carList){
         for (int i = 0; i < cars.Length; i++){
-            if (carsGO[i].transform.position.x < carList.cars[i].x){
-                carsGO[i].transform.rotation = Quaternion.Euler(0, 90, 0);
-            } else if (carsGO[i].transform.position.x > carList.cars[i].x){
-                carsGO[i].transform.rotation = Quaternion.Euler(0, -90, 0);
-            } else if (carsGO[i].transform.position.z < carList.cars[i].z) {
-                carsGO[i].transform.rotation = Quaternion.Euler(0, 0, 0);
-            } else {
-                carsGO[i].transform.rotation = Quaternion.Euler(0, 180, 0);
-            }
-
             Vector3 target = new Vector3(carList.cars[i].x, 0, carList.cars[i].z);
             carsGO[i].transform.position = target;
-            //StartCoroutine(moveCar(i, target));
-            
-            //carsGO[i].transform.position = new Vector3(carList.cars[i].x, 0, carList.cars[i].z);
-            carsGO[i].GetComponent<CarBuilder>().UpdateCar(carsSO[UnityEngine.Random.Range(0, carsSO.Length -1)]);
         }
     }
 
-    public void listenWithArgs(CarList cars){
-        placeCars(cars);
-    }
-
     public void oneTimeListener(StepList track){
+        targetPositions = new Vector3[cars.Length];
+        for(int i = 0; i < targetPositions.Length; i++){
+            targetPositions[i] = new Vector3();
+        }
         StartCoroutine(simulatorSteps(track));
     }
 
@@ -66,15 +65,19 @@ public class CarDataManager : MonoBehaviour
         for(int i = 0; i < track.steps.Length; i++){
             CarList cars = new CarList(track.steps[i].cars);
             placeCars(cars);
-            yield return new WaitForSeconds(0.5f);
+            for(int j = 0; j < targetPositions.Length; j++){    
+                if(i < track.steps.Length - 1){
+                    targetPositions[j] = new Vector3(
+                        track.steps[i + 1].cars[j].x - track.steps[i].cars[j].x,
+                        0,
+                        track.steps[i + 1].cars[j].z - track.steps[i].cars[j].z 
+                    );
+                } else {
+                    targetPositions[j] = Vector3.zero;
+                }
+            }
+            yield return new WaitForSeconds(1);
         }
     }
 
-    IEnumerator moveCar(int i, Vector3 target){
-        while(carsGO[i].transform.position != target){
-            Vector3 velocity = new Vector3(1,1,1);
-            carsGO[i].transform.position = Vector3.SmoothDamp(carsGO[i].transform.position, target, ref velocity, 0.3F);
-        }
-        yield return new WaitForSeconds(0);
-    }
 }

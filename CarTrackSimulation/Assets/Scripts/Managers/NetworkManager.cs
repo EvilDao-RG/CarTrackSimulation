@@ -6,9 +6,6 @@ using UnityEngine.Events;
 using System;
 
 [Serializable]
-public class RequestWithArgs : UnityEvent<CarList>{}
-
-[Serializable]
 public class OneTimeRequest : UnityEvent<StepList>{}
 
 public class NetworkManager : MonoBehaviour
@@ -22,7 +19,6 @@ public class NetworkManager : MonoBehaviour
     public CarList cars;
     public StepList stepList;
     public string backendURL = "http://127.0.0.1:5000/all";
-    public RequestWithArgs requestWithArgs;
     public OneTimeRequest oneTimeArgsListener;
     private IEnumerator enumerator;
 
@@ -44,23 +40,6 @@ public class NetworkManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    IEnumerator UpdatePositions(int poolSize){
-        while(true){
-            string url = backendURL + "?size=" + poolSize;
-            UnityWebRequest request = UnityWebRequest.Get(backendURL + "?size=" + poolSize);
-            yield return request.SendWebRequest();
-
-            if(request.result != UnityWebRequest.Result.Success){
-                Debug.LogError("NEL");
-                print(request.result);
-            } else {
-                cars = JsonUtility.FromJson<CarList>(request.downloadHandler.text);
-                requestWithArgs?.Invoke(cars);
-            }    
-            yield return new WaitForSeconds(1);
-        }
     }
 
     IEnumerator GetSimulation(int poolSize){
