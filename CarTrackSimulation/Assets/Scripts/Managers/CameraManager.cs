@@ -36,9 +36,9 @@ public class CameraManager : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.Space)){
-            DeactivateAll();
-        }
+        // if(Input.GetKeyDown(KeyCode.Space)){
+        //     DeactivateAll();
+        // }
     }
 
     public void NextCamera(){
