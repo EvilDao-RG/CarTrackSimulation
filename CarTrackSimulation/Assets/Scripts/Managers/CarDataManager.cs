@@ -11,7 +11,16 @@ public class CarDataManager : MonoBehaviour
     [SerializeField] private CarSO[] carsSO;
     [SerializeField] private float speed;
     private Vector3[] targetPositions;
+
+    private TrafficLight[] trafficLightStates;
+
     private IEnumerator enumerator;
+
+    [SerializeField] private GameObject[] trafficLights;
+    [SerializeField] private Material[] _trafficLightsMaterials;
+    private Material greenMaterial;
+    private Material redMaterial;
+    private Material currentMaterial;
 
     public static CarDataManager Instance{
         get;
@@ -34,6 +43,15 @@ public class CarDataManager : MonoBehaviour
             carsGO[i] = CarPoolManager.Instance.Activate(Vector3.zero);
             carsGO[i].GetComponent<CarBuilder>().UpdateCar(carsSO[UnityEngine.Random.Range(0, carsSO.Length -1)]);
         }
+
+        redMaterial = _trafficLightsMaterials[0];
+        greenMaterial = _trafficLightsMaterials[1];
+
+        for (int i = 0; i < trafficLights.Length; i++){
+            
+            trafficLights[i].gameObject.GetComponent<Renderer>().material = redMaterial;
+        }
+        
     }
 
     private void Update() {
@@ -45,6 +63,28 @@ public class CarDataManager : MonoBehaviour
                 }
             }
         }
+
+        if (trafficLightStates != null) {
+            for (int i = 0; i < trafficLightStates.Length; i++){
+                //print(i);
+                //for (int j = 0; j < trafficLightStates[i].trafficLights.Length; j++){
+                //print(trafficLightStates[i].state);
+            
+                if (trafficLightStates[i].state == 5){
+                    // print("Semaforo " + j + " Cambia a rojo");
+                    changeTrafficLightColor(trafficLights[i], redMaterial);
+
+                } else if (trafficLightStates[i].state == 7){
+                    // print("Semaforo " + j + " Cambia a verde");
+                    changeTrafficLightColor(trafficLights[i], greenMaterial);
+
+                }
+                
+                //}
+            }
+        }
+        
+        
     }
 
     public void placeCars(CarList carList){
@@ -56,11 +96,17 @@ public class CarDataManager : MonoBehaviour
 
     public void oneTimeListener(StepList track){
         targetPositions = new Vector3[cars.Length];
+        trafficLightStates = new TrafficLight[trafficLights.Length];
+        
         for(int i = 0; i < targetPositions.Length; i++){
             targetPositions[i] = new Vector3();
         }
+
         StartCoroutine(simulatorSteps(track));
+
     }
+
+
 
     IEnumerator simulatorSteps(StepList track){
         for(int i = 0; i < track.steps.Length; i++){
@@ -77,8 +123,22 @@ public class CarDataManager : MonoBehaviour
                     targetPositions[j] = Vector3.zero;
                 }
             }
+            // print(trafficLightStates.Length);
+            for (int k = 0; k < trafficLightStates.Length; k++){
+                trafficLightStates[k] = track.steps[i].stop_lights[k];
+            }
+            // print(trafficLightStates.Length);
+
+
             yield return new WaitForSeconds(1/speed);
         }
     }
 
+    void changeTrafficLightColor(GameObject trafficLight, Material material)
+    {
+        trafficLight.gameObject.GetComponent<Renderer>().material = material;
+    }
+
 }
+
+
