@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 235637485935481476}
   - component: {fileID: 235637485935481475}
   - component: {fileID: 235637485935481474}
-  - component: {fileID: 4071746667704803889}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -99,18 +98,3 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &4071746667704803889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 235637485935481473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28a89b31c0ee5ec44b30db01f6cdc6e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _trafficLightsMaterials:
-  - {fileID: 2100000, guid: 909b7c78fb14d144d84e8131e748fcf5, type: 2}
-  - {fileID: 2100000, guid: d45a5bfb3de195f4fa34a51ac682cfc0, type: 2}

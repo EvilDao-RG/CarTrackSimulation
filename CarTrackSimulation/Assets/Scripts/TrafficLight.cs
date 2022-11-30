@@ -2,6 +2,5 @@ using System;
 
 [Serializable]
 public class TrafficLight {
-    public int id;
-    public bool isRed;
+    public int state;
 }
