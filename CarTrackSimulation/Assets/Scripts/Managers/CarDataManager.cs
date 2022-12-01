@@ -57,40 +57,32 @@ public class CarDataManager : MonoBehaviour
     private void Update() {
         if(targetPositions != null){
             for(int i = 0; i < targetPositions.Length; i++){
-                if(targetPositions[i] != Vector3.zero){
-                    carsGO[i].transform.Translate(Vector3.forward * Time.deltaTime * speed);
+                if(carsGO[i] != null && targetPositions[i] != Vector3.zero){
                     carsGO[i].transform.forward = targetPositions[i].normalized;
+                    carsGO[i].transform.Translate(Vector3.forward * Time.deltaTime * speed);
                 }
             }
         }
 
         if (trafficLightStates != null) {
             for (int i = 0; i < trafficLightStates.Length; i++){
-                //print(i);
-                //for (int j = 0; j < trafficLightStates[i].trafficLights.Length; j++){
-                //print(trafficLightStates[i].state);
-            
                 if (trafficLightStates[i].state == 5){
                     // print("Semaforo " + j + " Cambia a rojo");
                     changeTrafficLightColor(trafficLights[i], redMaterial);
-
                 } else if (trafficLightStates[i].state == 7){
                     // print("Semaforo " + j + " Cambia a verde");
                     changeTrafficLightColor(trafficLights[i], greenMaterial);
-
                 }
-                
-                //}
             }
-        }
-        
-        
+        }        
     }
 
     public void placeCars(CarList carList){
         for (int i = 0; i < cars.Length; i++){
-            Vector3 target = new Vector3(carList.cars[i].x, 0, carList.cars[i].z);
-            carsGO[i].transform.position = target;
+            if(carsGO[i] != null){
+                Vector3 target = new Vector3(carList.cars[i].x, 0, carList.cars[i].z);
+                carsGO[i].transform.position = target;
+            }
         }
     }
 
@@ -101,37 +93,43 @@ public class CarDataManager : MonoBehaviour
         for(int i = 0; i < targetPositions.Length; i++){
             targetPositions[i] = new Vector3();
         }
-
         StartCoroutine(simulatorSteps(track));
-
     }
 
 
 
     IEnumerator simulatorSteps(StepList track){
+
         for(int i = 0; i < track.steps.Length; i++){
             CarList cars = new CarList(track.steps[i].cars);
             placeCars(cars);
-            for(int j = 0; j < targetPositions.Length; j++){    
-                if(i < track.steps.Length - 1){
-                    targetPositions[j] = new Vector3(
-                        track.steps[i + 1].cars[j].x - track.steps[i].cars[j].x,
-                        0,
-                        track.steps[i + 1].cars[j].z - track.steps[i].cars[j].z 
-                    );
-                } else {
-                    targetPositions[j] = Vector3.zero;
-                }
-            }
-            // print(trafficLightStates.Length);
+            // Update traffic lights
             for (int k = 0; k < trafficLightStates.Length; k++){
                 trafficLightStates[k] = track.steps[i].stop_lights[k];
             }
-            // print(trafficLightStates.Length);
-
-
+            // Update car positions
+            for(int j = 0; j < targetPositions.Length; j++){
+                if(i < track.steps.Length - 1){
+                    if(track.steps[i + 1].cars[j].x == 0 && track.steps[i + 1].cars[j].z == 0){
+                        if(carsGO[j] != null){
+                            Destroy(carsGO[j]);
+                        }
+                    } else{
+                        targetPositions[j] = new Vector3(
+                            track.steps[i + 1].cars[j].x - track.steps[i].cars[j].x,
+                            0,
+                            track.steps[i + 1].cars[j].z - track.steps[i].cars[j].z 
+                    );
+                    }
+                    
+                } else {
+                    targetPositions[j] = Vector3.forward;
+                }
+            }
             yield return new WaitForSeconds(1/speed);
+
         }
+
     }
 
     void changeTrafficLightColor(GameObject trafficLight, Material material)

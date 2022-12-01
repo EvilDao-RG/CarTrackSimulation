@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Car7
   m_EditorClassIdentifier: 
   speed: 0
-  scale: 0.6
+  scale: 0.5
   prefab: {fileID: 919132149155446097, guid: 6a1832541884daf488d89fbd9d0edbf3, type: 3}

@@ -4576,12 +4576,48 @@ MonoBehaviour:
   - id: 0
     x: 0
     z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
+  - id: 0
+    x: 0
+    z: 0
   carsSO:
   - {fileID: 11400000, guid: 205f180d98bd2eb42b665765e69a57c9, type: 2}
   - {fileID: 11400000, guid: e5bc032d19d189c4886a7fab0ecb839f, type: 2}
   - {fileID: 11400000, guid: 4beb87ba11a28f648a369ba05e4b5fef, type: 2}
   - {fileID: 11400000, guid: 235e13a9bb7301a4098cd71054f69563, type: 2}
-  speed: 10
+  speed: 3
   trafficLights:
   - {fileID: 1412828176}
   - {fileID: 203178454}
@@ -8970,7 +9006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 3215185165362388374, guid: 18eda35edf87961499a598cedd48c7ed, type: 3}
-  _poolSize: 8
+  _poolSize: 20
 --- !u!4 &1151623172
 Transform:
   m_ObjectHideFlags: 0
