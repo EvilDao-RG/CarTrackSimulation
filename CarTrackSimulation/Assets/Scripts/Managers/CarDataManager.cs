@@ -67,11 +67,11 @@ public class CarDataManager : MonoBehaviour
         if (trafficLightStates != null) {
             for (int i = 0; i < trafficLightStates.Length; i++){
                 if (trafficLightStates[i].state == 5){
-                    // print("Semaforo " + j + " Cambia a rojo");
-                    changeTrafficLightColor(trafficLights[i], redMaterial);
-                } else if (trafficLightStates[i].state == 7){
                     // print("Semaforo " + j + " Cambia a verde");
                     changeTrafficLightColor(trafficLights[i], greenMaterial);
+                } else if (trafficLightStates[i].state == 7){
+                    // print("Semaforo " + j + " Cambia a rojo");
+                    changeTrafficLightColor(trafficLights[i], redMaterial);
                 }
             }
         }        
